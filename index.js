@@ -51,7 +51,7 @@ client.once("ready", () => {
     console.log(`✅ Logged in as ${client.user.tag}`);
     console.log(`📅 Today is: ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`);
     client.user.setPresence({
-        activities: [{ name: "NB4rr Bot Safe Mode", type: 0 }],
+        activities: [{ name: "S4x Bot Safe Mode", type: 0 }],
         status: "online"
     });
     console.log(`🏠 Bot is ready!`);
@@ -86,8 +86,8 @@ client.on("messageCreate", async (message) => {
         if (command === "help") {
             const helpEmbed = new EmbedBuilder()
                 .setColor(0x8B0000)
-                .setAuthor({ name: "4rr BOT — Command List", iconURL: client.user.displayAvatarURL() })
-                .setDescription("Here are all available commands. Prefix: **`?`**")
+                .setAuthor({ name: "S4x BOT — Command List", iconURL: client.user.displayAvatarURL() })
+                .setDescription("Here are all available commands. Prefix: **`!6`**")
                 .addFields(
                     {
                         name: "<:bluearrow:1558331335494606911> Voice Control",
@@ -137,7 +137,7 @@ client.on("messageCreate", async (message) => {
             const memoryUsageMB = Math.round(process.memoryUsage().rss / 1024 / 1024);
             return message.reply(
 `💻 Bot System Info\n` +
-`Host: NB4rr's bot\n` +
+`Host: S4x's bot\n` +
 `Node Version: ${process.version}\n` +
 `Uptime: ${hours}h ${minutes}m\n` +
 `Memory: ${memoryUsageMB} MB\n` +
