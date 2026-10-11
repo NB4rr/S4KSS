@@ -14,60 +14,17 @@ const client = new Client({
 });
 
 /* ======================= BASIC CONFIG ======================= */
-const PREFIX = "?";
+const PREFIX = "!6";
 
 /* ======================= DEVELOPERS ======================= */
 const DEVELOPERS = new Set([
     "621347220729364490",
-    "922556935633510491"
+    "337043507124633601"
 ]);
 
 /* ======================= BOT OWNER ID (for mention reply) ======================= */
-const BOT_OWNER_ID = "621347220729364490";
+const BOT_OWNER_ID = "337043507124633601";
 const MENTION_GIF_URL = "https://i.pinimg.com/originals/b2/ff/d9/b2ffd9de76ce9385a2577daad6505575.gif";
-
-/* ======================= AUTO-KICK VOICE ======================= */
-const VC_CHANNEL_ID = "1558545561257255133";
-const allowedUsers = new Set(["621347220729364490",
-                             "922556935633510491",
-                              "1158222770858106942"
-                             ]);
-
-client.on("messageCreate", async (message) => {
-    if (!message.guild || message.author.bot) return;
-    if (!message.content.startsWith(PREFIX)) return;
-
-    const args = message.content.slice(PREFIX.length).trim().split(/ +/);
-    const command = (args.shift() || "").toLowerCase();
-
-     if (command === "ydkhol" || command === "tdkhol") {
-        if (!DEVELOPERS.has(message.author.id)) return message.reply("❌ Developer only");
-        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-        if (!member) return message.reply("❌ Mention a valid member");
- 
-        // Protection spéciale pour l'owner bot
-        if (member.id === BOT_OWNER_ID) {
-            return message.reply("**Bghiti tl3eb b zgheb d 9lawina db ??**");
-        }
- 
-        allowedUsers.add(member.id);
-        return message.reply(`<a:Verify:1557820737480564777> ${member.user.tag} Sf dkhol`);
-    }
- 
-    if (command === "maydkholch" || command === "matdkholch") {
-        if (!DEVELOPERS.has(message.author.id)) return message.reply("❌ Developer only");
-        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-        if (!member) return message.reply("❌ Mention a valid member");
-        
-        // Protection spéciale pour l'owner bot
-        if (member.id === BOT_OWNER_ID) {
-            return message.reply("**Bghiti tl3eb b zgheb d 9lawina db ??**");
-        }
-        
-        allowedUsers.delete(member.id);
-        return message.reply(`<a:Warning:1557820964941860975> ${member.user.tag} Zab ladkholti`);
-    }
-});
 
  /* ======================= SELF REACT SYSTEM ======================= */
 const selfReacts = new Map();
@@ -303,22 +260,6 @@ client.on("messageCreate", async (message) => {
 function escapeRegex(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
-
-/* ======================= AUTO-KICK VOICE HANDLER ======================= */
-client.on("voiceStateUpdate", async (oldState, newState) => {
-    try {
-        if (newState.channelId !== VC_CHANNEL_ID) return;
-        if (oldState.channelId === newState.channelId) return; // mute/deafen/etc.
-        if (newState.id === client.user.id) return;            // ma ykickich rasso
-        if (allowedUsers.has(newState.id)) return;
-
-        const member = newState.member || await newState.guild.members.fetch(newState.id);
-        await member.voice.disconnect("Not allowed in this VC");
-        console.log(`⚠️ ${member.user.tag} was auto-kicked from VC`);
-    } catch (err) {
-        console.log("Error in auto-kick VC:", err);
-    }
-});
 
 /* ======================= LOGIN ======================= */
 if (!process.env.BOT_TOKEN) {
